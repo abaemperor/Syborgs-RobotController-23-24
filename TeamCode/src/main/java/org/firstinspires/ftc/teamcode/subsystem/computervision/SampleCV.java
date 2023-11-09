@@ -28,6 +28,7 @@ public class SampleCV implements ComputerVision {
         visionPortal = new VisionPortal.Builder()
                 .setCamera(hardwareMap.get(WebcamName.class, "Camera"))
                 .addProcessor(aprilTag)
+                .addProcessor(processor)
                 .build();
     }
 

@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.subsystem.drivetrain.SampleMecanumDrive;
 
-@TeleOp(name = "[TESTING] Eliot Test TeleOp")
+@TeleOp(name = "[TEST] Eliot TeleOp")
 public class EliotTestTeleOp extends LinearOpMode {
 
     SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);

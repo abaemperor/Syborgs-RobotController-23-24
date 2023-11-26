@@ -11,12 +11,12 @@ public class EliotTestTeleOp extends LinearOpMode {
 
     SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-    double LstickX = gamepad1.left_stick_x;
-    double LstickY = -gamepad1.left_stick_y;
+    double LStickX = gamepad1.left_stick_x;
+    double LStickY = -gamepad1.left_stick_y;
     //reminder that the left_stick_y float corresponds as
     // -1 = up and 1 = down, so I just reversed them here
     // cuz I'm totally gonna forget later
-    double RstickX = gamepad1.right_stick_x;
+    double RStickX = gamepad1.right_stick_x;
 
     @Override
     public void runOpMode() {
@@ -37,8 +37,8 @@ public class EliotTestTeleOp extends LinearOpMode {
             }
 
             // Stick drive inputs
-            drive.cartesianMove(5*LstickX, 5*LstickY);
-            drive.spin(0.2*RstickX);
+            drive.cartesianMove(5*LStickX, 5*LStickY);
+            drive.spin(0.2*RStickX);
             // TODO: figure out proper coefficients to all these inputs
             // i'm gonna be honest i have no clue if this works
             // and/or if this is drivable but i can't test this rn

@@ -6,10 +6,16 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.subsystem.drivetrain.SampleMecanumDrive;
 
-@TeleOp(name = "womp womp")
+@TeleOp(name = "[TESTING] Eliot Test TeleOp")
 public class EliotTestTeleOp extends LinearOpMode {
 
     SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+
+    double stickX = gamepad1.left_stick_x;
+    double stickY = -gamepad1.left_stick_y;
+    //reminder that the left_stick_y float corresponds as
+    // -1 = up and 1 = down, so I just reversed them here
+    // cuz I'm totally gonna forget later
 
     @Override
     public void runOpMode() {
@@ -30,7 +36,9 @@ public class EliotTestTeleOp extends LinearOpMode {
             }
 
             // Stick drive inputs
-
+            //drive.cartesianMove(stickX, stickY);
+            telemetry.addData("Gamepad stick X", stickX);
+            telemetry.addData("Gamepad stick Y", stickY);
 
         }
     }

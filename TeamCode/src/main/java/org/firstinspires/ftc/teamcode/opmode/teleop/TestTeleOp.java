@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.opmode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.subsystem.drivetrain.SampleMecanumDrive;
 
@@ -9,9 +10,9 @@ import org.firstinspires.ftc.teamcode.subsystem.drivetrain.SampleMecanumDrive;
 public class TestTeleOp extends LinearOpMode {
     @Override
     public void runOpMode() {
-        SampleMecanumDrive chassis = new SampleMecanumDrive(hardwareMap);
-        chassis.drive(gamepad1.left_stick_y);
-        chassis.strafe(gamepad1.left_stick_x);
-        chassis.spin(gamepad1.right_stick_x);
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+        if(gamepad1.dpad_up){
+            drive.cartesianMove(0,5);
+        }
     }
 }

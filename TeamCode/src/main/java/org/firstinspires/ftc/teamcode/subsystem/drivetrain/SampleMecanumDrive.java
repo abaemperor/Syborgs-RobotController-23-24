@@ -38,7 +38,7 @@ public class SampleMecanumDrive implements DrivetrainMecanum {
     }
 
     private void setPower(double power) {
-        motorList.forEach(motor -> setPower(0));
+        motorList.forEach(motor -> setPower(power));
     }
 
     @Override
@@ -48,10 +48,10 @@ public class SampleMecanumDrive implements DrivetrainMecanum {
 
         setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        motorFL.setTargetPosition((int)(xTicks + yTicks));
-        motorFR.setTargetPosition((int)(-xTicks + yTicks));
-        motorBL.setTargetPosition((int)(-xTicks + yTicks));
-        motorBR.setTargetPosition((int)(xTicks + yTicks));
+        motorFL.setTargetPosition(xTicks + yTicks);
+        motorFR.setTargetPosition(-xTicks + yTicks);
+        motorBL.setTargetPosition(-xTicks + yTicks);
+        motorBR.setTargetPosition(xTicks + yTicks);
         setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 

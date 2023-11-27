@@ -9,7 +9,6 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
 import java.util.*;
-
 public interface ComputerVision {
     int getSpikeMark();
     List<AprilTagDetection> getDetections();

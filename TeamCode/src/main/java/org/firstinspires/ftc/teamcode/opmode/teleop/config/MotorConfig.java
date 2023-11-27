@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.controller.Controller;
-import org.firstinspires.ftc.teamcode.util.ThreadManager;
+import org.firstinspires.ftc.teamcode.util.ThreadUtils;
 
 /**
  * TeleOp to test the motor mappings to test if the wheels are mapped properly
@@ -69,6 +69,6 @@ public class MotorConfig extends OpMode {
 
     @Override
     public void stop() {
-        ThreadManager.runThread = false;
+        ThreadUtils.runThread = false;
     }
 }

@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.controller;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.util.ThreadManager;
+import org.firstinspires.ftc.teamcode.util.ThreadUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,7 +45,7 @@ public class Controller {
         addValue("RY", gp -> gp.right_stick_y);
 
         new Thread(() -> {
-            while (ThreadManager.runThread) update();
+            while (ThreadUtils.runThread) update();
         }).start();
     }
 

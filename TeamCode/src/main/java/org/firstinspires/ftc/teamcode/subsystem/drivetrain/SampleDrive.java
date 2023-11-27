@@ -9,6 +9,7 @@ import com.sun.tools.javac.util.List;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.teamcode.util.ThreadUtils;
 import org.firstinspires.ftc.teamcode.util.math.MathUtils;
 import org.firstinspires.ftc.teamcode.util.math.Vector;
 
@@ -85,6 +86,18 @@ public class SampleDrive implements DrivetrainMecanum {
         motorBL.setTargetPosition(-xTicks + yTicks);
         motorBR.setTargetPosition(xTicks + yTicks);
         setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        while (isMoving()) {
+            setPower(SLOW_SPEED);
+        }
+
+        ThreadUtils.rest();
+    }
+
+    private boolean isMoving() {
+        for (DcMotor motor : motorList)
+            if (motor.isBusy()) return true;
+        return false;
     }
 
     public void polarMove(double cm, double rad) {

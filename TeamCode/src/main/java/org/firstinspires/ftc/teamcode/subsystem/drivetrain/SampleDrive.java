@@ -9,18 +9,19 @@ import com.sun.tools.javac.util.List;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.teamcode.util.ThreadUtils;
 import org.firstinspires.ftc.teamcode.util.math.MathUtils;
 import org.firstinspires.ftc.teamcode.util.math.Vector;
 
-public class SampleMecanumDrive implements DrivetrainMecanum {
+public class SampleDrive implements DrivetrainMecanum {
     public static final double PULSES_PER_REVOLUTION = 537.7;
     public static final double WHEEL_CIRCUMFERENCE = 6.201;
     public static final double TICKS_PER_CM = PULSES_PER_REVOLUTION / WHEEL_CIRCUMFERENCE;
     public static final double TICKS_PER_RAD = 425;
 
+    public static final double HIGH_SPEED = 1;
     public static final double MEDIUM_SPEED = 0.7;
     public static final double SLOW_SPEED = 0.35;
-    public static final double HIGH_SPEED = 1;
 
     private DcMotor motorFL;
     private DcMotor motorFR;
@@ -33,7 +34,10 @@ public class SampleMecanumDrive implements DrivetrainMecanum {
 
     private DriveMode driveMode = DriveMode.ABSOLUTE;
 
-    public SampleMecanumDrive(HardwareMap hardwareMap) {
+    private double horizontalMultiplier = 1;
+    private double verticalMultiplier = 0.87;
+
+    public SampleDrive(HardwareMap hardwareMap) {
         motorFL = hardwareMap.get(DcMotor.class, "FL");
         motorFR = hardwareMap.get(DcMotor.class, "FR");
         motorBL = hardwareMap.get(DcMotor.class, "BL");
@@ -68,8 +72,12 @@ public class SampleMecanumDrive implements DrivetrainMecanum {
 
     @Override
     public void cartesianMove(double cmX, double cmY) {
-        int xTicks = (int)(cmX * TICKS_PER_CM);
-        int yTicks = (int)(cmY * TICKS_PER_CM);
+        Vector target = new Vector(cmX, cmY);
+        if (driveMode == DriveMode.ABSOLUTE)
+            target.rotate(-getAngle());
+
+        int xTicks = (int)(target.getX() * TICKS_PER_CM);
+        int yTicks = (int)(target.getY() * TICKS_PER_CM);
 
         setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
@@ -78,6 +86,22 @@ public class SampleMecanumDrive implements DrivetrainMecanum {
         motorBL.setTargetPosition(-xTicks + yTicks);
         motorBR.setTargetPosition(xTicks + yTicks);
         setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        while (isMoving()) {
+            setPower(SLOW_SPEED);
+        }
+
+        ThreadUtils.rest();
+    }
+
+    private boolean isMoving() {
+        for (DcMotor motor : motorList)
+            if (motor.isBusy()) return true;
+        return false;
+    }
+
+    public void polarMove(double cm, double rad) {
+        cartesianMove(cm * Math.cos(rad), cm * Math.sin(rad));
     }
 
     @Override
@@ -105,19 +129,32 @@ public class SampleMecanumDrive implements DrivetrainMecanum {
         setPower(SLOW_SPEED);
     }
 
-    public void teleDrive(Gamepad gamepad, double power) {
-        double turn = gamepad.right_stick_x;
+    public void setMultiplier(double horizontalMultiplier, double verticalMultiplier) {
+        this.horizontalMultiplier = horizontalMultiplier;
+        this.verticalMultiplier = verticalMultiplier;
+    }
 
-        Vector targetVector = new Vector(gamepad.left_stick_x, -gamepad.left_stick_y);
+    public void teleDrive(double lStickX, double lStickY, double rStickX, double power) {
+        double turn = rStickX;
+
+        Vector targetVector = new Vector(lStickX, -lStickY);
         if (this.driveMode == DriveMode.ABSOLUTE)
             targetVector.rotate(-getAngle());
-        targetVector.stretch(1, .87);
+        targetVector.stretch(horizontalMultiplier, verticalMultiplier);
         targetVector.multiply(power);
 
         motorFL.setPower(targetVector.getX() + targetVector.getY() + turn);
         motorFR.setPower(-targetVector.getX() + targetVector.getY() - turn);
         motorBL.setPower(-targetVector.getX() + targetVector.getY() + turn);
         motorBR.setPower(targetVector.getX() + targetVector.getY() - turn);
+    }
+
+    public void teleDrive(double lStickX, double lStickY, double rStickX) {
+        teleDrive(lStickX, lStickY, rStickX, MEDIUM_SPEED);
+    }
+
+    public void teleDrive(Gamepad gamepad, double power) {
+        teleDrive(gamepad.left_stick_x, gamepad.left_stick_y, gamepad.right_stick_x, power);
     }
 
     public void teleDrive(Gamepad gamepad) {

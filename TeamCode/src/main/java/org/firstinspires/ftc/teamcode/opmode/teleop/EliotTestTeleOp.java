@@ -3,46 +3,30 @@ package org.firstinspires.ftc.teamcode.opmode.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.subsystem.drivetrain.SampleMecanumDrive;
 
 @TeleOp(name = "[TEST] Eliot TeleOp")
 public class EliotTestTeleOp extends LinearOpMode {
-    public DcMotor FR;
-    public DcMotor FL;
-    public DcMotor BR;
-    public DcMotor BL;
 
-    public void teleOpMap() {
+    SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        FR = hardwareMap.get(DcMotor.class, "FR");
-        FR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        FL = hardwareMap.get(DcMotor.class, "FL");
-        FL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        BR = hardwareMap.get(DcMotor.class, "BR");
-        BR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        BL = hardwareMap.get(DcMotor.class, "BL");
-        BL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    double LStickX;
+    double LStickY;
+    double RStickX;
 
-        //motor reverse for right side
-        FR.setDirection(DcMotorSimple.Direction.REVERSE);
-        BR.setDirection(DcMotorSimple.Direction.REVERSE);
-    }
-
-    public void teleDrive(double x, double y, double turn) {
-        telemetry.addData("Drive Input X", x);
-        telemetry.addData("Drive Input Y", y);
-
-        FL.setPower(x + y - turn);
-        FR.setPower(x - y + turn);
-        BL.setPower(x - y - turn);
-        BR.setPower(x + y + turn);
-    }
-
+    @Override
     public void runOpMode() {
+        waitForStart();
+        while (opModeIsActive()) {
+            double LStickX = gamepad1.left_stick_x;
+            double LStickY = -gamepad1.left_stick_y;
+            double RStickX = gamepad1.right_stick_x;
 
+            //stick drive movement
+            //TODO (have to rewrite since was using auton methods instead of TeleOp)
 
+        }
     }
 
 }

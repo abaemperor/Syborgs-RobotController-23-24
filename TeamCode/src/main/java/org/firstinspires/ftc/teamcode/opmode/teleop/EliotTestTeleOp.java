@@ -2,14 +2,13 @@ package org.firstinspires.ftc.teamcode.opmode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.subsystem.drivetrain.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.subsystem.drivetrain.SampleDrive;
 
 @TeleOp(name = "[TESTING] Eliot Test TeleOp")
 public class EliotTestTeleOp extends LinearOpMode {
 
-    SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+    SampleDrive drive = new SampleDrive(hardwareMap);
 
     // THIS WILL NOT WORK ! you only update the stick variables once, so it's not responsive to player input
     // -Jeffrey

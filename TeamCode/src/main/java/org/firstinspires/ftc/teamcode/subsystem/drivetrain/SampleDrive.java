@@ -12,7 +12,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.teamcode.util.math.MathUtils;
 import org.firstinspires.ftc.teamcode.util.math.Vector;
 
-public class SampleMecanumDrive implements DrivetrainMecanum {
+public class SampleDrive implements DrivetrainMecanum {
     public static final double PULSES_PER_REVOLUTION = 537.7;
     public static final double WHEEL_CIRCUMFERENCE = 6.201;
     public static final double TICKS_PER_CM = PULSES_PER_REVOLUTION / WHEEL_CIRCUMFERENCE;
@@ -33,7 +33,7 @@ public class SampleMecanumDrive implements DrivetrainMecanum {
 
     private DriveMode driveMode = DriveMode.ABSOLUTE;
 
-    public SampleMecanumDrive(HardwareMap hardwareMap) {
+    public SampleDrive(HardwareMap hardwareMap) {
         motorFL = hardwareMap.get(DcMotor.class, "FL");
         motorFR = hardwareMap.get(DcMotor.class, "FR");
         motorBL = hardwareMap.get(DcMotor.class, "BL");

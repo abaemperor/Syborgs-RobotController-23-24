@@ -11,6 +11,8 @@ public class EliotTestTeleOp extends LinearOpMode {
 
     SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
+    // THIS WILL NOT WORK ! you only update the stick variables once, so it's not responsive to player input
+    // -Jeffrey
     double LStickX = gamepad1.left_stick_x;
     double LStickY = -gamepad1.left_stick_y;
     //reminder that the left_stick_y float corresponds as
@@ -23,6 +25,8 @@ public class EliotTestTeleOp extends LinearOpMode {
         waitForStart();
         while (opModeIsActive()) {
             // DPad inputs
+            // Avoid doing this, these methods are for autonomous and this may have unexpected behaviour
+            // -Jeffrey
             if (gamepad1.dpad_up) {
                 drive.drive(5);
             }

@@ -7,6 +7,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.controller.Controller;
 import org.firstinspires.ftc.teamcode.util.ThreadManager;
 
+/**
+ * TeleOp to test the motor mappings to test if the wheels are mapped properly
+ * @author Jeffrey Tvedt
+ */
 @TeleOp(name="Motor Config")
 public class MotorConfig extends OpMode {
     private Controller controller;

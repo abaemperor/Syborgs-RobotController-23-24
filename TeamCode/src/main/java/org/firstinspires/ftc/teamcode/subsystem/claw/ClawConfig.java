@@ -1,4 +1,10 @@
 package org.firstinspires.ftc.teamcode.subsystem.claw;
 
-public class ClawConfig {
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
+public class ClawConfig extends LinearOpMode {
+    @Override
+    public void runOpMode(){
+
+    }
 }

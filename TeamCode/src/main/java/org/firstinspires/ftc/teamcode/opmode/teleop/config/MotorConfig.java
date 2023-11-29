@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.util.ThreadUtils;
  * TeleOp to test the motor mappings to test if the wheels are mapped properly
  * @author Jeffrey Tvedt
  */
-@TeleOp(name="Motor Config")
+@TeleOp(name="Config Drivetrain")
 public class MotorConfig extends OpMode {
     private Controller controller;
 

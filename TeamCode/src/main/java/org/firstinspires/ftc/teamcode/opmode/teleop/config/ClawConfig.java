@@ -17,7 +17,7 @@ public class ClawConfig extends LinearOpMode {
     public Servo leftClaw;
     public Servo rightClaw;
 
-    public Servo clawSpin;
+    public Servo spinClaw;
 
     public double leftCloseValue = 0.7;
     public double rightCloseValue = 0.3;
@@ -31,7 +31,7 @@ public class ClawConfig extends LinearOpMode {
     public void runOpMode() {
         leftClaw = hardwareMap.get(Servo.class, "LC");
         rightClaw = hardwareMap.get(Servo.class, "RC");
-        clawSpin = hardwareMap.get(Servo.class,"CS");
+        spinClaw = hardwareMap.get(Servo.class,"SC");
 
         Controller controller = new Controller(gamepad1);
 
@@ -47,10 +47,10 @@ public class ClawConfig extends LinearOpMode {
                 rightClaw.setPosition(rightOpenValue);
             }
             if(controller.pressingButton("DU")){
-                clawSpin.setPosition(spinBack);
+                spinClaw.setPosition(spinBack);
             }
             if(controller.pressingButton("DD")){
-                clawSpin.setPosition(spinDown);
+                spinClaw.setPosition(spinDown);
             }
 
             if(controller.holdingButton("A")){

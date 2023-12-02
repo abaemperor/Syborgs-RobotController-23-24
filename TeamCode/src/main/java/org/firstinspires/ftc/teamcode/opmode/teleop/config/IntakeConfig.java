@@ -30,15 +30,19 @@ public class IntakeConfig extends LinearOpMode {
             //Allows the user to reverse the direction of the motors for the arm
             if(controller.pressingButton("A")){
                 intakeLift.setDirection(DcMotor.Direction.REVERSE);
+                telemetry.addData("Intake Direction:", "Reverse");
             }
             else if(controller.pressingButton("B")){
                 intakeLift.setDirection(DcMotor.Direction.FORWARD);
+                telemetry.addData("Intake Direction:", "Forward");
             }
             if(controller.pressingButton("RT")){
                 intakeSpin.setDirection(CRServo.Direction.REVERSE);
+                telemetry.addData("Spin Direction:", "Reverse");
             }
             if(controller.pressingButton("LT")){
                 intakeSpin.setDirection(CRServo.Direction.FORWARD);
+                telemetry.addData("Spin Direction:", "Forward");
             }
 
 
@@ -49,8 +53,11 @@ public class IntakeConfig extends LinearOpMode {
             if(spinning){
                 intakeSpin.setPower(1);
             }
+            intakeLift.setPower(controller.getValue("RY"));
 
+            telemetry.addData("Spinning:",spinning);
 
+            telemetry.update();
         }
     }
 }

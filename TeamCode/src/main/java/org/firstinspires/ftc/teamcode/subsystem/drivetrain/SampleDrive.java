@@ -23,11 +23,11 @@ public class SampleDrive implements DrivetrainMecanum {
     public static final double MEDIUM_SPEED = 0.7;
     public static final double SLOW_SPEED = 0.35;
 
-    private DcMotor motorFL;
-    private DcMotor motorFR;
-    private DcMotor motorBL;
-    private DcMotor motorBR;
-    private List<DcMotor> motorList;
+    protected DcMotor motorFL;
+    protected DcMotor motorFR;
+    protected DcMotor motorBL;
+    protected DcMotor motorBR;
+    protected List<DcMotor> motorList;
 
     private BNO055IMU imu;
     private double anchorAngle = 0;
@@ -45,7 +45,7 @@ public class SampleDrive implements DrivetrainMecanum {
 
         motorList = List.of(motorFL, motorFR, motorBL, motorBR);
 
-        setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -58,15 +58,15 @@ public class SampleDrive implements DrivetrainMecanum {
         imu.initialize(parameters);
     }
 
-    private void setMode(DcMotor.RunMode mode) {
-        motorList.forEach(motor -> setMode(mode));
+    protected void setRunMode(DcMotor.RunMode mode) {
+        motorList.forEach(motor -> setRunMode(mode));
     }
 
-    private void setZeroPowerBehavior(DcMotor.ZeroPowerBehavior zeroPowerBehavior) {
+    protected void setZeroPowerBehavior(DcMotor.ZeroPowerBehavior zeroPowerBehavior) {
         motorList.forEach(motor -> setZeroPowerBehavior(zeroPowerBehavior));
     }
 
-    private void setPower(double power) {
+    protected void setPower(double power) {
         motorList.forEach(motor -> setPower(power));
     }
 
@@ -79,13 +79,13 @@ public class SampleDrive implements DrivetrainMecanum {
         int xTicks = (int)(target.getX() * TICKS_PER_CM);
         int yTicks = (int)(target.getY() * TICKS_PER_CM);
 
-        setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         motorFL.setTargetPosition(xTicks + yTicks);
         motorFR.setTargetPosition(-xTicks + yTicks);
         motorBL.setTargetPosition(-xTicks + yTicks);
         motorBR.setTargetPosition(xTicks + yTicks);
-        setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        setRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         while (isMoving()) {
             setPower(SLOW_SPEED);
@@ -94,7 +94,7 @@ public class SampleDrive implements DrivetrainMecanum {
         ThreadUtils.rest();
     }
 
-    private boolean isMoving() {
+    public boolean isMoving() {
         for (DcMotor motor : motorList)
             if (motor.isBusy()) return true;
         return false;
@@ -118,14 +118,14 @@ public class SampleDrive implements DrivetrainMecanum {
     public void spin(double rad) {
         int tickCount = (int)(rad * 425);
 
-        setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         motorFL.setTargetPosition(-tickCount);
         motorFR.setTargetPosition(tickCount);
         motorBL.setTargetPosition(-tickCount);
         motorBR.setTargetPosition(tickCount);
 
-        setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        setRunMode(DcMotor.RunMode.RUN_TO_POSITION);
         setPower(SLOW_SPEED);
     }
 

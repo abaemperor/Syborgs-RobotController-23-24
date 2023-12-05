@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.util.ThreadUtils;
  * @author Jeffrey Tvedt
  */
 @TeleOp(name="Config Drivetrain")
-public class MotorConfig extends OpMode {
+public class DrivetrainConfig extends OpMode {
     private Controller controller;
 
     private ExposedDrive drivetrain = new ExposedDrive(hardwareMap);

@@ -12,7 +12,7 @@ public class Intake {
     public final int INTAKE_OPEN = 0;
 
     public Intake(HardwareMap hardwareMap){
-        intakeLift = hardwareMap.get(DcMotor.class,"IL");
+        intakeLift = hardwareMap.get(DcMotor.class,"IM");
         intakeSpin = hardwareMap.get(CRServo.class, "IS");
 
         intakeLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

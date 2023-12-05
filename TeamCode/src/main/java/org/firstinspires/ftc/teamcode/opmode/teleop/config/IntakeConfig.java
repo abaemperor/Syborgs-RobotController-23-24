@@ -18,7 +18,7 @@ public class IntakeConfig extends LinearOpMode {
     public void runOpMode(){
         Controller controller = new Controller(gamepad1);
 
-        intakeLift = hardwareMap.get(DcMotor.class,"IL");
+        intakeLift = hardwareMap.get(DcMotor.class,"IM");
         intakeSpin = hardwareMap.get(CRServo.class,"IS");
 
         boolean spinning = false;

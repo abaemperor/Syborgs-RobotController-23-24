@@ -13,14 +13,17 @@ public class ExposedDrive extends SampleDrive {
     public DcMotor getBL() { return motorBL; }
     public DcMotor getBR() { return motorBR; }
 
+    @Override
     public void setRunMode(DcMotor.RunMode runMode) {
         super.setRunMode(runMode);
     }
 
+    @Override
     public void setPower(double power) {
         super.setPower(power);
     }
 
+    @Override
     public void setZeroPowerBehavior(DcMotor.ZeroPowerBehavior zeroPowerBehavior) {
         super.setZeroPowerBehavior(zeroPowerBehavior);
     }

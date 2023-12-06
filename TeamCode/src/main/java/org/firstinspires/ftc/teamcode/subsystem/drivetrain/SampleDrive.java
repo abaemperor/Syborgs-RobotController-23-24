@@ -47,15 +47,15 @@ public class SampleDrive implements DrivetrainMecanum {
 
         setRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.mode = BNO055IMU.SensorMode.IMU;
-        parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
-        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.loggingEnabled = false;
-
-        imu = hardwareMap.get(BNO055IMU.class, "imu");
-        imu.initialize(parameters);
+//
+//        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+//        parameters.mode = BNO055IMU.SensorMode.IMU;
+//        parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
+//        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+//        parameters.loggingEnabled = false;
+//
+//        imu = hardwareMap.get(BNO055IMU.class, "imu");
+//        imu.initialize(parameters);
     }
 
     protected void setRunMode(DcMotor.RunMode mode) {

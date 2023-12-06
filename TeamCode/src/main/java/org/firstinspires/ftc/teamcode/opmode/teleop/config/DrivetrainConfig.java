@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.util.ThreadUtils;
 public class DrivetrainConfig extends OpMode {
     private Controller controller;
 
-    private ExposedDrive drivetrain = new ExposedDrive(hardwareMap);
+    private ExposedDrive drivetrain;
 
     private DcMotor fl;
     private DcMotor fr;
@@ -25,6 +25,7 @@ public class DrivetrainConfig extends OpMode {
 
     @Override
     public void init() {
+        drivetrain = new ExposedDrive(hardwareMap);
         controller = new Controller(gamepad1);
 
         fl = drivetrain.getFL();

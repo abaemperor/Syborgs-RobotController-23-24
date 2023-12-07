@@ -12,4 +12,12 @@ public class ThreadUtils {
             throw new RuntimeException(e);
         }
     }
+
+    public static void stopThreads() {
+        runThread = false;
+    }
+
+    public static boolean isRunThread() {
+        return runThread;
+    }
 }

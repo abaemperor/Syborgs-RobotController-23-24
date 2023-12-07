@@ -21,17 +21,18 @@ public class ArmConfig extends LinearOpMode {
         waitForStart();
 
         while(opModeIsActive()){
-            if(controller.pressingButton("A")){
+            if(controller.pressingButton("A")) {
                 armMotor.setDirection(DcMotor.Direction.REVERSE);
-                telemetry.addData("Direction: ","Reverse");
+                telemetry.addData("Direction", "Reverse");
             }
-            else if(controller.pressingButton("B")){
+            else if(controller.pressingButton("B")) {
                 armMotor.setDirection(DcMotor.Direction.FORWARD);
-                telemetry.addData("Direction: ","Forward");
+                telemetry.addData("Direction", "Forward");
             }
             armMotor.setPower(controller.getValue("LY"));
 
-            telemetry.addData("Current Position: ",armMotor.getCurrentPosition());
+            telemetry.addData("Current Position",armMotor.getCurrentPosition());
+            telemetry.addData("Motor Power", armMotor.getPower());
             telemetry.update();
         }
     }

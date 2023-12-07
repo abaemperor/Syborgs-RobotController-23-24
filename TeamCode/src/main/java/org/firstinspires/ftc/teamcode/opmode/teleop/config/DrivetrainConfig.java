@@ -50,17 +50,16 @@ public class DrivetrainConfig extends OpMode {
         drivetrain.setPower(0);
 
         if (controller.holdingButton("X"))
-            fl.setPower(.3);
+            fl.setPower(.5);
         if (controller.holdingButton("Y"))
-            fr.setPower(.3);
+            fr.setPower(.5);
         if (controller.holdingButton("A"))
-            bl.setPower(.3);
+            bl.setPower(.5);
         if (controller.holdingButton("B"))
-            br.setPower(.3);
+            br.setPower(.5);
 
-        if (controller.getValue("LY") != 0) {
+        if (controller.getValue("LY") != 0)
             drivetrain.setPower(controller.getValue("LY") / 2);
-        }
 
         if (controller.pressingButton("DL"))
             testEncoder(fl);

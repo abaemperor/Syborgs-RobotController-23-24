@@ -16,18 +16,13 @@ public class ArmImpl implements Arm {
         armMotor = hardwareMap.get(DcMotor.class, "AM");
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public void setPosition(int position) {
         armMotor.setTargetPosition(position);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        while (armMotor.getCurrentPosition() != armMotor.getTargetPosition()) {
-            targeting = true;
-            armMotor.setPower(.5);
-        }
-
-        targeting = false;
+        armMotor.setPower(0.8);
     }
 
     @Override

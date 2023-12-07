@@ -2,18 +2,23 @@ package org.firstinspires.ftc.teamcode.controller;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.util.ThreadUtils;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.function.ToDoubleFunction;
 
 public class Controller {
     private final Gamepad gamepad;
+    private Telemetry debug = null;
     private final Map<String, ButtonState> buttonData = new HashMap<String, ButtonState>();
     private final Map<String, Predicate<Gamepad>> buttonFunctions = new HashMap<String, Predicate<Gamepad>>();
     private final Map<String, ToDoubleFunction<Gamepad>> valueFunctions = new HashMap<String, ToDoubleFunction<Gamepad>>();
+
+    private double counter = 0;
 
     public Controller(Gamepad gamepad) {
         this.gamepad = gamepad;
@@ -45,8 +50,14 @@ public class Controller {
         addValue("RY", gp -> gp.right_stick_y);
 
         new Thread(() -> {
-            while (ThreadUtils.runThread) update();
+            while (ThreadUtils.isRunThread())
+                update();
         }).start();
+    }
+
+    public Controller(Gamepad gamepad, Telemetry telemetry) {
+        this(gamepad);
+        debug = telemetry;
     }
 
     public enum ButtonState {
@@ -57,11 +68,25 @@ public class Controller {
     }
 
     public void update() {
+        if (debug != null) {
+            debug.addLine("CONTROLLER UPDATING");
+            debug.addLine(String.valueOf(counter));
+            counter++;
+        }
+
         for (String button : buttonFunctions.keySet()) {
+            if (debug != null) {
+                debug.addLine(button);
+            }
+
             if ((buttonState(button, ButtonState.RELEASE) || buttonState(button, ButtonState.LIFT)) && holdingButton(button))
                 buttonData.put(button, ButtonState.PRESS);
-            if ((buttonState(button, ButtonState.PRESS) || buttonState(button, ButtonState.HOLD)) && !holdingButton(button))
+            else if ((buttonState(button, ButtonState.PRESS) || buttonState(button, ButtonState.HOLD)) && !holdingButton(button))
                 buttonData.put(button, ButtonState.RELEASE);
+        }
+
+        if (debug != null) {
+            debug.update();
         }
     }
 
@@ -70,11 +95,15 @@ public class Controller {
     }
 
     public boolean buttonState(String button, ButtonState state) {
-        return buttonData.get(button) == state;
+        return Objects.equals(buttonData.get(button), state);
+    }
+
+    public ButtonState getState(String button) {
+        return buttonData.get(button);
     }
 
     public boolean pressingButton(String button) {
-        if (buttonData.get(button) == ButtonState.PRESS) {
+        if (buttonState(button, ButtonState.PRESS)) {
             buttonData.put(button, ButtonState.HOLD);
             return true;
         }

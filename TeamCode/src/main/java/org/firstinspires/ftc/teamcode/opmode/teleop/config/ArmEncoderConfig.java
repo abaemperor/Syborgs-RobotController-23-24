@@ -13,6 +13,9 @@ public class ArmEncoderConfig extends OpMode {
     private Controller controller;
     private int position = 0;
 
+    private boolean x = true;
+    private boolean y = true;
+
     @Override
     public void init() {
         arm = new ArmImpl(hardwareMap);
@@ -21,20 +24,30 @@ public class ArmEncoderConfig extends OpMode {
 
     @Override
     public void loop() {
-        int factor = 50;
+        int factor;
+
+        telemetry.addData("A", String.valueOf(controller.getState("A")));
+        telemetry.addData("A is lift?", String.valueOf(controller.buttonState("A", Controller.ButtonState.LIFT)));
 
         if (controller.holdingButton("RT"))
             factor = 10;
         else if (controller.holdingButton("RB"))
             factor = 250;
+        else
+            factor = 50;
 
-        if (controller.pressingButton("X"))
+        if (gamepad1.x && gamepad1.x != x)
             position -= factor;
-        if (controller.pressingButton("Y"))
+        if (gamepad1.y && gamepad1.y != y)
             position += factor;
+
+        arm.setPosition(position);
 
         telemetry.addData("Position", position);
         telemetry.update();
+
+        x = gamepad1.x;
+        y = gamepad1.y;
     }
 
     @Override

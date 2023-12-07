@@ -9,9 +9,9 @@ public class ClawImpl implements Claw {
     public Servo spinClaw;
 
     public final double LEFT_CLOSE_VALUE = 0.7;
-    public final double RIGHT_CLOSE_VALUE = 0.3;
+    public final double RIGHT_CLOSE_VALUE = 0.32;
     public final double LEFT_OPEN_VALUE = 1.0;
-    public final double RIGHT_OPEN_VALUE = 0.0;
+    public final double RIGHT_OPEN_VALUE = 0.24;
 
     public final int BACK_POSITION = 0;
     public final int DOWN_POSITION = 0;
@@ -76,5 +76,10 @@ public class ClawImpl implements Claw {
     public void spinBack(){
         if(!open)
             spinClaw.setPosition(BACK_POSITION);
+    }
+
+    @Override
+    public void setLift(double position) {
+        spinClaw.setPosition(position);
     }
 }

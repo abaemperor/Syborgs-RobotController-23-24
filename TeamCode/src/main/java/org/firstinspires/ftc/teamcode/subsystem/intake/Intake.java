@@ -8,8 +8,8 @@ public class Intake {
     public DcMotor intakeLift;
     public CRServo intakeSpin;
 
-    public final int INTAKE_CLOSE = 0;
-    public final int INTAKE_OPEN = 0;
+    public final int INTAKE_CLOSE = -100;
+    public final int INTAKE_OPEN = -35;
 
     public Intake(HardwareMap hardwareMap){
         intakeLift = hardwareMap.get(DcMotor.class,"IM");

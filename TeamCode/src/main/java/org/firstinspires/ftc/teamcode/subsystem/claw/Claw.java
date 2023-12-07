@@ -11,4 +11,6 @@ public interface Claw {
 
     void open();
     void close();
+
+    void setLift(double position);
 }

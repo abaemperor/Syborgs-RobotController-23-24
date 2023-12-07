@@ -25,21 +25,6 @@ public class ArmImpl implements Arm {
         armMotor.setPower(0.8);
     }
 
-    @Override
-    public void setHigh(){
-        setPosition(HIGH_HEIGHT);
-    }
-
-    @Override
-    public void setMid(){
-        setPosition(MIDDLE_HEIGHT);
-    }
-
-    @Override
-    public void setLow(){
-        setPosition(LOW_HEIGHT);
-    }
-
     public void manualMove(double power){
         if(!targeting) {
             armMotor.setPower(power);

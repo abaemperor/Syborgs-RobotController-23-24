@@ -49,6 +49,7 @@ public class Controller {
         addValue("RX", gp -> gp.right_stick_x);
         addValue("RY", gp -> gp.right_stick_y);
 
+        ThreadUtils.startThreads();
         new Thread(() -> {
             while (ThreadUtils.isRunThread())
                 update();
@@ -75,14 +76,14 @@ public class Controller {
         }
 
         for (String button : buttonFunctions.keySet()) {
-            if (debug != null) {
-                debug.addLine(button);
-            }
-
             if ((buttonState(button, ButtonState.RELEASE) || buttonState(button, ButtonState.LIFT)) && holdingButton(button))
                 buttonData.put(button, ButtonState.PRESS);
             else if ((buttonState(button, ButtonState.PRESS) || buttonState(button, ButtonState.HOLD)) && !holdingButton(button))
                 buttonData.put(button, ButtonState.RELEASE);
+
+            if (debug != null) {
+                debug.addData(button, getState(button));
+            }
         }
 
         if (debug != null) {
@@ -95,7 +96,7 @@ public class Controller {
     }
 
     public boolean buttonState(String button, ButtonState state) {
-        return Objects.equals(buttonData.get(button), state);
+        return Objects.equals(getState(button), state);
     }
 
     public ButtonState getState(String button) {

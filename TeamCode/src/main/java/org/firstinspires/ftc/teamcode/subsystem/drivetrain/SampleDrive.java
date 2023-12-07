@@ -45,8 +45,9 @@ public class SampleDrive implements DrivetrainMecanum {
 
         motorList = List.of(motorFL, motorFR, motorBL, motorBR);
 
-        setRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        setRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.mode = BNO055IMU.SensorMode.IMU;

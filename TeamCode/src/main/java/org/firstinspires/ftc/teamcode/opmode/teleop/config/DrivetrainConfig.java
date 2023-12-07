@@ -33,11 +33,6 @@ public class DrivetrainConfig extends OpMode {
         bl = drivetrain.getBL();
         br = drivetrain.getBR();
 
-        fl = hardwareMap.get(DcMotor.class, "FL");
-        fr = hardwareMap.get(DcMotor.class, "FR");
-        bl = hardwareMap.get(DcMotor.class, "BL");
-        br = hardwareMap.get(DcMotor.class, "BR");
-
         telemetry.addData("Front Left", "X");
         telemetry.addData("Front Right", "Y");
         telemetry.addData("Back Left", "A");
@@ -53,23 +48,18 @@ public class DrivetrainConfig extends OpMode {
     @Override
     public void loop() {
         drivetrain.setPower(0);
-        telemetry.addLine(String.valueOf(fl.getPower()));
 
-        if (gamepad1.x)
-            fl.setPower(.3);
-        if (gamepad1.y)
-            fr.setPower(.3);
-        if (gamepad1.a)
-            bl.setPower(.3);
-        if (gamepad1.b)
-            br.setPower(.3);
+        if (controller.holdingButton("X"))
+            fl.setPower(.5);
+        if (controller.holdingButton("Y"))
+            fr.setPower(.5);
+        if (controller.holdingButton("A"))
+            bl.setPower(.5);
+        if (controller.holdingButton("B"))
+            br.setPower(.5);
 
-        telemetry.addLine(String.valueOf(fl.getPower()));
-        telemetry.update();
-
-        if (controller.getValue("LY") != 0) {
+        if (controller.getValue("LY") != 0)
             drivetrain.setPower(controller.getValue("LY") / 2);
-        }
 
         if (controller.pressingButton("DL"))
             testEncoder(fl);

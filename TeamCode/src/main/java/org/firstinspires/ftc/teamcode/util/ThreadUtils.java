@@ -13,6 +13,10 @@ public class ThreadUtils {
         }
     }
 
+    public static void startThreads() {
+        runThread = true;
+    }
+
     public static void stopThreads() {
         runThread = false;
     }

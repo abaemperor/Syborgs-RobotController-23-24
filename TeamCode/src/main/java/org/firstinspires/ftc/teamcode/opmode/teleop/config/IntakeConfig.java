@@ -50,9 +50,11 @@ public class IntakeConfig extends LinearOpMode {
 
             else if(controller.pressingButton("Y")){spinning=false;}
 
-            if(spinning){
+            if(spinning)
                 intakeSpin.setPower(1);
-            }
+            else
+                intakeSpin.setPower(0);
+
             intakeLift.setPower(controller.getValue("RY"));
 
             telemetry.addData("Spinning:",spinning);

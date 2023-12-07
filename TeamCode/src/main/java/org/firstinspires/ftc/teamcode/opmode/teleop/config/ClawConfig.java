@@ -61,7 +61,7 @@ public class ClawConfig extends LinearOpMode {
                     leftCloseValue += 0.1;
                 }
                 if(controller.pressingButton("RB")){ //Right bumper and holding down A to increase the right open value
-                    rightCloseValue += 0.1;
+                    rightOpenValue += 0.1;
                 }
                 if(controller.pressingButton("LB")){ //Left bumper and holding down A to increase the left open value
                     leftOpenValue += 0.1;

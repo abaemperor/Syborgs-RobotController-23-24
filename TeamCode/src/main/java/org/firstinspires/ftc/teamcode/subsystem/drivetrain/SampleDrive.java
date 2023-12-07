@@ -47,27 +47,27 @@ public class SampleDrive implements DrivetrainMecanum {
 
         setRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-//
-//        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-//        parameters.mode = BNO055IMU.SensorMode.IMU;
-//        parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
-//        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-//        parameters.loggingEnabled = false;
-//
-//        imu = hardwareMap.get(BNO055IMU.class, "imu");
-//        imu.initialize(parameters);
+
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.mode = BNO055IMU.SensorMode.IMU;
+        parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
+        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.loggingEnabled = false;
+
+        imu = hardwareMap.get(BNO055IMU.class, "imu");
+        imu.initialize(parameters);
     }
 
     protected void setRunMode(DcMotor.RunMode mode) {
-        motorList.forEach(motor -> setRunMode(mode));
+        motorList.forEach(motor -> motor.setMode(mode));
     }
 
     protected void setZeroPowerBehavior(DcMotor.ZeroPowerBehavior zeroPowerBehavior) {
-        motorList.forEach(motor -> setZeroPowerBehavior(zeroPowerBehavior));
+        motorList.forEach(motor -> motor.setZeroPowerBehavior(zeroPowerBehavior));
     }
 
     protected void setPower(double power) {
-        motorList.forEach(motor -> setPower(power));
+        motorList.forEach(motor -> motor.setPower(power));
     }
 
     @Override

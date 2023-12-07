@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.controller.Controller;
 import org.firstinspires.ftc.teamcode.subsystem.claw.ClawImpl;
 import org.firstinspires.ftc.teamcode.util.ThreadUtils;
+import org.firstinspires.ftc.teamcode.util.math.MathUtils;
 
 @TeleOp(name="Config Claw Position")
 public class ClawPositionConfig extends OpMode {
@@ -26,8 +27,9 @@ public class ClawPositionConfig extends OpMode {
         claw.setLeft(leftPosition);
         claw.setRight(rightPosition);
 
-        telemetry.addData("Left", leftPosition);
-        telemetry.addData("Right", rightPosition);
+        telemetry.addData("Left", MathUtils.round(leftPosition, 2));
+        telemetry.addData("Right", MathUtils.round(rightPosition, 2));
+        telemetry.update();
 
         double factor;
 

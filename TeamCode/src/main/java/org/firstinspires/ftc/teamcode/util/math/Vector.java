@@ -16,7 +16,7 @@ public class Vector {
     public void setY(double y) { this.y = y; }
 
     public Vector rotate(double theta) {
-        Vector v = this;
+        Vector v = new Vector(this.x, this.y);
 
         // Basically just matrix multiplication
         x = v.x * Math.cos(theta) + v.y * Math.cos(theta + MathUtils.HALF_PI);

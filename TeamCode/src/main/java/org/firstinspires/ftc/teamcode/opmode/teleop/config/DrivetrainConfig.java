@@ -50,16 +50,16 @@ public class DrivetrainConfig extends OpMode {
         drivetrain.setPower(0);
 
         if (controller.holdingButton("X"))
-            fl.setPower(.5);
+            fl.setPower(1);
         if (controller.holdingButton("Y"))
-            fr.setPower(.5);
+            fr.setPower(1);
         if (controller.holdingButton("A"))
-            bl.setPower(.5);
+            bl.setPower(1);
         if (controller.holdingButton("B"))
-            br.setPower(.5);
+            br.setPower(1);
 
         if (controller.getValue("LY") != 0)
-            drivetrain.setPower(controller.getValue("LY") / 2);
+            drivetrain.setPower(controller.getValue("LY"));
 
         if (controller.pressingButton("DL"))
             testEncoder(fl);
@@ -73,6 +73,9 @@ public class DrivetrainConfig extends OpMode {
 
     private void testEncoder(DcMotor motor) {
         motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        drivetrain.getList().forEach(wheel -> wheel.setTargetPosition(0));
+
         motor.setTargetPosition(200);
         drivetrain.setRunMode(DcMotor.RunMode.RUN_TO_POSITION);
 

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.subsystem.drivetrain;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.sun.tools.javac.util.List;
@@ -48,6 +49,11 @@ public class SampleDrive implements DrivetrainMecanum {
         setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         setRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        motorFL.setDirection(DcMotor.Direction.REVERSE);
+        motorBL.setDirection(DcMotor.Direction.REVERSE);
+        motorFR.setDirection(DcMotor.Direction.FORWARD);
+        motorBR.setDirection(DcMotor.Direction.REVERSE);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.mode = BNO055IMU.SensorMode.IMU;
@@ -136,18 +142,16 @@ public class SampleDrive implements DrivetrainMecanum {
     }
 
     public void teleDrive(double lStickX, double lStickY, double rStickX, double power) {
-        double turn = rStickX;
-
         Vector targetVector = new Vector(lStickX, -lStickY);
-        if (this.driveMode == DriveMode.ABSOLUTE)
-            targetVector.rotate(-getAngle());
         targetVector.stretch(horizontalMultiplier, verticalMultiplier);
         targetVector.multiply(power);
+        if (this.driveMode == DriveMode.ABSOLUTE)
+            targetVector.rotate(-getAngle());
 
-        motorFL.setPower(targetVector.getX() + targetVector.getY() + turn);
-        motorFR.setPower(-targetVector.getX() + targetVector.getY() - turn);
-        motorBL.setPower(-targetVector.getX() + targetVector.getY() + turn);
-        motorBR.setPower(targetVector.getX() + targetVector.getY() - turn);
+        motorFL.setPower(targetVector.getX() + targetVector.getY() + rStickX);
+        motorFR.setPower(-targetVector.getX() + targetVector.getY() - rStickX);
+        motorBL.setPower(-targetVector.getX() + targetVector.getY() + rStickX);
+        motorBR.setPower(targetVector.getX() + targetVector.getY() - rStickX);
     }
 
     public void teleDrive(double lStickX, double lStickY, double rStickX) {

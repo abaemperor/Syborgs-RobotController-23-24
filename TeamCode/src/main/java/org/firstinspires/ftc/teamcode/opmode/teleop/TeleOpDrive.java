@@ -12,6 +12,7 @@ public class TeleOpDrive{
     public DcMotor FL;
     public DcMotor BR;
     public DcMotor BL;
+
     public TeleOpDrive(HardwareMap hardwareMap){
         FR = hardwareMap.get(DcMotor.class, "FR");
         FR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -23,9 +24,10 @@ public class TeleOpDrive{
         BL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         //motor reverse for right side
-        FR.setDirection(DcMotorSimple.Direction.REVERSE);
-        BR.setDirection(DcMotorSimple.Direction.REVERSE);
+        FL.setDirection(DcMotor.Direction.REVERSE);
+        BL.setDirection(DcMotor.Direction.REVERSE);
     }
+
     public void teleDrive(double x, double y, double spin, Telemetry telemetry){
         telemetry.addData("Drive Input X", x);
         telemetry.addData("Drive Input Y", y);

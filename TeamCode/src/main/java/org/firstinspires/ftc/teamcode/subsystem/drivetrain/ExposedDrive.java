@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.subsystem.drivetrain;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import java.util.List;
+
 public class ExposedDrive extends SampleDrive {
     public ExposedDrive(HardwareMap hardwareMap) {
         super(hardwareMap);
@@ -12,6 +14,8 @@ public class ExposedDrive extends SampleDrive {
     public DcMotor getFR() { return motorFR; }
     public DcMotor getBL() { return motorBL; }
     public DcMotor getBR() { return motorBR; }
+
+    public List<DcMotor> getList() { return motorList; }
 
     @Override
     public void setRunMode(DcMotor.RunMode runMode) {

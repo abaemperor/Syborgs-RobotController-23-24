@@ -4,14 +4,17 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 
 public class ClawImpl implements Claw {
+    private ClawState leftState = ClawState.OPEN;
+    private ClawState rightState = ClawState.OPEN;
+
     public Servo leftClaw;
     public Servo rightClaw;
     public Servo spinClaw;
 
-    public final double LEFT_CLOSE_VALUE = 0.7;
-    public final double RIGHT_CLOSE_VALUE = 0.32;
-    public final double LEFT_OPEN_VALUE = 1.0;
-    public final double RIGHT_OPEN_VALUE = 0.24;
+    public final double LEFT_CLOSE_VALUE = 0.52;
+    public final double RIGHT_CLOSE_VALUE = 0.37;
+    public final double LEFT_OPEN_VALUE = 0.60;
+    public final double RIGHT_OPEN_VALUE = 0.25;
 
     public final int BACK_POSITION = 0;
     public final int DOWN_POSITION = 0;
@@ -32,11 +35,13 @@ public class ClawImpl implements Claw {
     @Override
     public void openLeft() {
         setLeft(LEFT_OPEN_VALUE);
+        leftState = ClawState.OPEN;
     }
 
     @Override
     public void closeLeft() {
         setLeft(LEFT_CLOSE_VALUE);
+        leftState = ClawState.CLOSE;
     }
 
     @Override
@@ -47,11 +52,13 @@ public class ClawImpl implements Claw {
     @Override
     public void openRight() {
         setRight(RIGHT_OPEN_VALUE);
+        rightState = ClawState.OPEN;
     }
 
     @Override
     public void closeRight() {
         setRight(RIGHT_CLOSE_VALUE);
+        rightState = ClawState.CLOSE;
     }
 
     @Override
@@ -71,6 +78,25 @@ public class ClawImpl implements Claw {
         closeLeft();
         closeRight();
         open = false;
+    }
+
+    public void toggleLeft() {
+        if (leftState.equals(ClawState.OPEN))
+            closeLeft();
+        else
+            openLeft();
+    }
+
+    public void toggleRight() {
+        if (rightState.equals(ClawState.OPEN))
+            closeRight();
+        else
+            openRight();
+    }
+
+    public void toggle() {
+        toggleLeft();
+        toggleRight();
     }
 
     public void spinBack(){

@@ -16,8 +16,8 @@ public class ClawImpl implements Claw {
     public final double LEFT_OPEN_VALUE = 0.60;
     public final double RIGHT_OPEN_VALUE = 0.25;
 
-    public final int BACK_POSITION = 0;
-    public final int DOWN_POSITION = 0;
+    public final double BACK_POSITION = .45;
+    public final double DOWN_POSITION = .55;
 
     public boolean open;
 

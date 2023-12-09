@@ -17,12 +17,13 @@ public class ArmImpl implements Arm {
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        armMotor.setDirection(DcMotor.Direction.REVERSE);
     }
 
     public void setPosition(int position) {
         armMotor.setTargetPosition(position);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        armMotor.setPower(0.8);
+        armMotor.setPower(1.0);
     }
 
     public void manualMove(double power){

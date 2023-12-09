@@ -142,16 +142,17 @@ public class SampleDrive implements DrivetrainMecanum {
     }
 
     public void teleDrive(double lStickX, double lStickY, double rStickX, double power) {
+        double turn = rStickX * 0.6;
         Vector targetVector = new Vector(lStickX, -lStickY);
         targetVector.stretch(horizontalMultiplier, verticalMultiplier);
         targetVector.multiply(power);
         if (this.driveMode == DriveMode.ABSOLUTE)
             targetVector.rotate(-getAngle());
 
-        motorFL.setPower(targetVector.getX() + targetVector.getY() + rStickX);
-        motorFR.setPower(-targetVector.getX() + targetVector.getY() - rStickX);
-        motorBL.setPower(-targetVector.getX() + targetVector.getY() + rStickX);
-        motorBR.setPower(targetVector.getX() + targetVector.getY() - rStickX);
+        motorFL.setPower(targetVector.getX() + targetVector.getY() + turn);
+        motorFR.setPower(-targetVector.getX() + targetVector.getY() - turn);
+        motorBL.setPower(-targetVector.getX() + targetVector.getY() + turn);
+        motorBR.setPower(targetVector.getX() + targetVector.getY() - turn);
     }
 
     public void teleDrive(double lStickX, double lStickY, double rStickX) {

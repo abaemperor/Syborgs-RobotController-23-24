@@ -9,7 +9,7 @@ public class Intake {
     private final CRServo intakeSpin;
 
     public final int INTAKE_CLOSE = -100;
-    public final int INTAKE_OPEN = -15;
+    public final int INTAKE_OPEN = -25;
 
     private State state = State.OPEN;
 

@@ -21,9 +21,11 @@ public class ArmImpl implements Arm {
     }
 
     public void setPosition(int position) {
+        double power = position < armMotor.getTargetPosition() ? 1 : 0.1;
+
         armMotor.setTargetPosition(position);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        armMotor.setPower(1.0);
+        armMotor.setPower(power);
     }
 
     public void manualMove(double power){

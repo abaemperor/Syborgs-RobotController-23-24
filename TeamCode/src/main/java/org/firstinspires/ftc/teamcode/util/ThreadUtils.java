@@ -6,8 +6,12 @@ public class ThreadUtils {
     public static boolean runThread = true;
 
     public static void rest() {
+        rest(200);
+    }
+
+    public static void rest(int time) {
         try {
-            Thread.sleep(200);
+            Thread.sleep(time);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

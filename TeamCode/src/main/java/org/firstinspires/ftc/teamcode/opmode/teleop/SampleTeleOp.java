@@ -20,6 +20,8 @@ public class SampleTeleOp extends OpMode {
     Intake intake;
     Controller controller;
 
+    private boolean intakeFlag = false;
+
     @Override
     public void init() {
         drive = new SampleDrive(hardwareMap);
@@ -32,10 +34,10 @@ public class SampleTeleOp extends OpMode {
 
     @Override
     public void start() {
-        arm.setPosition(-30);
         claw.open();
         claw.setLift(claw.DOWN_POSITION);
         intake.open();
+        intakeFlag = false;
     }
 
     @Override
@@ -59,31 +61,54 @@ public class SampleTeleOp extends OpMode {
             claw.toggleRight();
         if (controller.pressingButton("A"))
             claw.toggle();
+        if (controller.pressingButton("RB"))
+            claw.toggleLift();
 
         if (controller.pressingButton("DU")) {
-            arm.setPosition(-300);
-            claw.setLift(claw.DOWN_POSITION);
-        }
-
-        if (controller.pressingButton("DL")) {
-            arm.setPosition(-100);
+            arm.setPosition(-400);
+            claw.setLift(claw.BACK_POSITION);
         }
 
         if (controller.pressingButton("DD")) {
             arm.setPosition(0);
-            claw.setLift(claw.BACK_POSITION);
+            claw.setLift(claw.DOWN_POSITION);
         }
+
+        if (controller.pressingButton("DL"))
+            arm.setPosition(-100);
+        if (controller.pressingButton("DR"))
+            arm.setPosition(10);
 
         if (controller.pressingButton("LB"))
             intake.toggle();
         if (controller.holdingButton("X"))
             intake.spin(1);
-        else
+        else if (!intakeFlag)
             intake.spin(0);
+
+        if (controller.pressingButton("B"))
+            intakeProcess();
     }
 
     @Override
     public void stop() {
         ThreadUtils.stopThreads();
+    }
+
+    private void intakeProcess() {
+        intakeFlag = true;
+        new Thread(() -> {
+            intake.spin(1);
+            ThreadUtils.rest(400);
+            claw.close();
+            intake.spin(0);
+
+            ThreadUtils.rest(3000);
+
+            arm.setPosition(-300);
+            claw.setLift(claw.BACK_POSITION);
+
+            intakeFlag = false;
+        }).start();
     }
 }

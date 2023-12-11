@@ -9,7 +9,7 @@ public class Intake {
     private final CRServo intakeSpin;
 
     public final int INTAKE_CLOSE = -100;
-    public final int INTAKE_OPEN = -25;
+    public final int INTAKE_OPEN = -12;
 
     private State state = State.OPEN;
 
@@ -22,6 +22,7 @@ public class Intake {
         intakeLift = hardwareMap.get(DcMotor.class,"IM");
         intakeSpin = hardwareMap.get(CRServo.class, "IS");
 
+        intakeLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         intakeLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 

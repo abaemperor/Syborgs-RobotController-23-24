@@ -33,11 +33,11 @@ public class LiftIntakeConfig extends OpMode {
         int factor;
 
         if (controller.holdingButton("RT"))
-            factor = 250;
+            factor = 25;
         else if (controller.holdingButton("RB"))
-            factor = 10;
+            factor = 1;
         else
-            factor = 50;
+            factor = 5;
 
         if (controller.pressingButton("X"))
             position += factor;

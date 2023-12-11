@@ -33,7 +33,7 @@ public class SampleDrive implements DrivetrainMecanum {
     private BNO055IMU imu;
     private double anchorAngle = 0;
 
-    private DriveMode driveMode = DriveMode.ABSOLUTE;
+    private DriveMode driveMode = DriveMode.RELATIVE;
 
     private double horizontalMultiplier = 1;
     private double verticalMultiplier = 0.87;

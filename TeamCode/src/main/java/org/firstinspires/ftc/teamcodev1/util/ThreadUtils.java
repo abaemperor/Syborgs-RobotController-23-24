@@ -1,9 +1,9 @@
-package org.firstinspires.ftc.teamcode.util;
+package org.firstinspires.ftc.teamcodev1.util;
 
 public class ThreadUtils {
     public static final double REST_TIME = 200;
 
-    private static boolean runThread = true;
+    public static boolean runThread = true;
 
     public static void rest() {
         rest(200);
